@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing Apps</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div id = "content">
+        <form>
+            <div class='properties'>
+                Thickness: <input type='number' id= 'thickness' min='1' max='25' value='5' onChange='changeThickness()'/>
+                Color: <input type='color' id='color' onChange='changeColor()'/>
+            </div>
+           <hr/>
+           <div class='flex-container'>
+               <img class='image' src='./images/ka.png' alt='ka'/>
+               <img class='image' src='./images/kha.png' alt='kha'/>
+               <img class='image' src='./images/ga.png' alt='ga'/>
+               <img class='image' src='./images/gha.jpg' alt='gha'/>
+               <img class='image' src='./images/nga.png' alt='nga'/>
+               <img class='image' src='./images/ca.png' alt='ka'/>
+               <img class='image' src='./images/cha.png' alt='ka'/>
+               <img class='image' src='./images/jaa.png' alt='kha'/>
+            </div>
+        </form>
+
+        <canvas id = "myCanvas"></canvas>
+    </div>
+    <script type="text/javascript">
+        var canvas = document.querySelector('#myCanvas');
+        var cntx= canvas.getContext('2d');
+        var painting = document.querySelector('#content');
+        var paintStyle= getComputedStyle(painting);
+        canvas.width = parseInt(paintStyle.getPropertyValue('width'));
+        canvas.height = parseInt(paintStyle.getPropertyValue('height'));
+        var mouse = {x:0, y:0};
+
+        canvas.addEventListener('mousemove', function(e) {
+            mouse.x = e.pageX - this.offsetLeft;
+            mouse.y = e.pageY - this.offsetTop;
+        }, false);
+
+        cntx.lineWidth = 5;
+        cntx.lineJoin = 'round';
+        cntx.lineCap = 'round';
+
+        canvas.addEventListener('mousedown', function (e)  {
+            cntx.beginPath();
+            cntx.moveTo(mouse.x , mouse.y);
+            canvas.addEventListener('mousemove', onPaint, false);
+          
+        }, false);
+
+        canvas.addEventListener('mouseup', function (e)  {
+          canvas.removeEventListener('mousemove', onPaint, false);
+        }, false);
+
+        var onPaint = () => {
+            cntx.lineTo(mouse.x, mouse.y);
+            cntx.stroke();
+        }
+
+        function changeThickness() {
+            cntx.lineWidth = document.querySelector('#thickness').value;
+        }
+
+        function changeColor() {
+            cntx.strokeStyle = document.querySelector('#color').value;
+        }
+
+    
+    </script>
+</body>
+</html>
