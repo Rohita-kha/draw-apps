@@ -9,23 +9,23 @@
 </head>
 <body>
     <div id = "content">
-        <form>
+        <div class='form'>
             <div class='properties'>
                 Thickness: <input type='number' id= 'thickness' min='1' max='25' value='5' onChange='changeThickness()'/>
                 Color: <input type='color' id='color' onChange='changeColor()'/>
             </div>
            <hr/>
            <div class='flex-container'>
-               <img class='image' src='./images/ka.png' alt='ka'/>
-               <img class='image' src='./images/kha.png' alt='kha'/>
-               <img class='image' src='./images/ga.png' alt='ga'/>
-               <img class='image' src='./images/gha.jpg' alt='gha'/>
-               <img class='image' src='./images/nga.png' alt='nga'/>
-               <img class='image' src='./images/ca.png' alt='ka'/>
-               <img class='image' src='./images/cha.png' alt='ka'/>
-               <img class='image' src='./images/jaa.png' alt='kha'/>
+                <button onClick="display('ka')"><img  id="ka" class='image' src='./images/ka.png' alt='ka'/></button>
+                <button onClick="display('kha')"><img id="kha" class='image' src='./images/kha.png' alt='kha'/></button>
+                <button onClick="display('ga')"><img class='image' id='ga' src='./images/ga.png' alt='ga'/></button>
+                <button onClick="display('gha')"> <img class='image' id='gha' src='./images/gha.jpg' alt='gha'/></button>
+                <button onClick="display('nga')"><img class='image' id='nga' src='./images/nga.png' alt='nga'/></button>
+                <button onClick="display('ca')"><img class='image' id='ca' src='./images/ca.png' alt='ka'/></button>
+                <button onClick="display('cha')"><img class='image' id='cha' src='./images/cha.png' alt='ka'/></button>
+                <button onClick="display('jaa')"><img class='image' id='jaa' src='./images/jaa.png' alt='kha'/></button>
             </div>
-        </form>
+        </div>
 
         <canvas id = "myCanvas"></canvas>
     </div>
@@ -51,18 +51,18 @@
             cntx.beginPath();
             cntx.moveTo(mouse.x , mouse.y);
             canvas.addEventListener('mousemove', onPaint, false);
-          
+        
         }, false);
 
         canvas.addEventListener('mouseup', function (e)  {
-          canvas.removeEventListener('mousemove', onPaint, false);
+        canvas.removeEventListener('mousemove', onPaint, false);
         }, false);
 
         var onPaint = () => {
             cntx.lineTo(mouse.x, mouse.y);
             cntx.stroke();
         }
-
+        
         function changeThickness() {
             cntx.lineWidth = document.querySelector('#thickness').value;
         }
@@ -71,7 +71,12 @@
             cntx.strokeStyle = document.querySelector('#color').value;
         }
 
+        function display(letter) {
+            cntx.clearRect(200, 200, canvas.width/2, canvas.height/2);
+            var image = document.querySelector(`#${letter}`);
+            cntx.drawImage(image, canvas.width/3, canvas.height/3, 300, 300);
     
+        }
     </script>
 </body>
 </html>

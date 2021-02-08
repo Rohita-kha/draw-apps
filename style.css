@@ -11,7 +11,7 @@
     margin-top: 40px;
     cursor: crosshair;
 }
-form {
+.form {
     position: absolute;
     width: 1000px;
     background: lightgray;
